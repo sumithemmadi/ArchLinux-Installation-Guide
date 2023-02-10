@@ -707,7 +707,45 @@ Start Openbox Window Manager:
 startx
 ```
 
-### Keybindings
+- If not working restart you PC.
+
+## Enabling Tap-to-click
+
+Follow these steps to enable tap-to-click in window manager.
+
+Follow these steps carefully, they require root privileges! ⚠️
+  Install this package.
+
+  ```sh
+  sudo pacman -S --needed xf86-input-libinput
+  ```
+
+  Then Edit this file.
+
+  ```sh
+  sudo nano /etc/X11/xorg.conf.d/30-touchpad.conf
+  ```
+
+  Paste this text into 30-touchpad.conf
+
+  ```conf
+  Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "Tapping" "on"
+    Option "TappingButtonMap" "lmr"
+  EndSection
+  ```
+
+  Save the file (Ctrl + s)
+  Quit the editor (Ctrl + q)
+  
+  Reboot
+
+Tap to click should now be enabled!
+
+## Keybindings
 
 Here's some shortcut keys you want to use to speed up your work. For more, `Right click on desktop > Keybinds`
 
