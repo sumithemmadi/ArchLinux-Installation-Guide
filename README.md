@@ -459,12 +459,12 @@ Just installing these packages is not enough though. You'll have to make sure th
 
 - Then do 
   ```sh
-  grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux
+  grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch\ Linux
   ```
 - Then do
 
   ```
-  grub-mkconfig -o /boot/grub/grub.cfg`.
+  grub-mkconfig -o /boot/grub/grub.cfg
   ```
 
 - Do `exit` and then `umount -R /mnt`.
@@ -481,6 +481,10 @@ Just installing these packages is not enough though. You'll have to make sure th
 ## Creating a user
 
 - Start by logining in as **`root`**. Do `ln -svf /run/systemd/resolve/resolv.conf /etc/resolv.conf`.
+
+  ```sh
+  ln -svf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+  ```
 
   ```sh
   sudo pacman -S zsh
@@ -537,7 +541,7 @@ Just installing these packages is not enough though. You'll have to make sure th
 - Login as the user you've created. In the ZSH configuration, continue to configure zsh or press *q* to quit if you already have a configuration in your dotfiles.
 
   ```sh
-  sudo pacman -S bat lm_sensors neofetch`.
+  sudo pacman -S bat lm_sensors neofetch
   ```
 
 ---
