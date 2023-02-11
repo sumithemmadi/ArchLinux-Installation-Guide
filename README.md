@@ -223,7 +223,7 @@ Now we'll install arch on disk
 
 ### Select Mirror
 
-Before installation, is recommended to select the best mirror servers.
+Before installation,It is recommended to select the best mirror servers.
 
 So open the file `/etc/pacman.d/mirrorlist` (again, you can use `nano` or `vi` to do that) and move the best mirror to the top of the file.
 
