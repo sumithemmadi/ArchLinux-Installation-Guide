@@ -502,6 +502,7 @@ sudo pacman -S zsh
 
 - Set the user's password with <code> passwd **USERNAME**</code>.
   Example:
+
   ```sh
   passed sumithemmadi
   ```
@@ -688,6 +689,7 @@ Installing Openbox
     - `cp /etc/X11/xinit/xinitrc ~/.xinitrc`.
     - `cp /etc/X11/xinit/xserverrc ~/.xserverrc`.
   - Edit `~/.xinitrc` and replace the last block of commands with `exec openbox-session`. Remove all last lines `twm &` to last line.
+
     ![image](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/draw.png)
   
   - replace the last block of commands with `exec openbox-session`
@@ -748,6 +750,7 @@ If you want to use **openbox** with the setup I use =>  [EasyOpenboxWM](https://
 Follow these steps to enable tap-to-click in window manager.
 
 Follow these steps carefully, they require root privileges! ⚠️
+
   Install this package.
 
   ```sh
