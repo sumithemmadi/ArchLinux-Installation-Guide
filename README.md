@@ -235,9 +235,9 @@ So open the file `/etc/pacman.d/mirrorlist` (again, you can use `nano` or `vi` t
 Now that the mirrors are already set, use `pacstrap` to install the base package group:
 Open the file `/etc/pacman.conf` and uncomment the line `#ParallelDownloads = 5`
 
-```sh
-pacstrap /mnt base{,-devel} btrfs-progs dkms linux{{,-lts}{,-headers},-firmware} nano
-```
+  ```sh
+  pacstrap /mnt base{,-devel} btrfs-progs dkms linux{{,-lts}{,-headers},-firmware} nano
+  ```
 
 - If the install failed because of signature issues, run below command to update the keyring and try again
   ```sh
@@ -275,9 +275,9 @@ pacman-key --populate archlinux
 
 - Again open the file `/etc/pacman.conf` and uncomment the line `#ParallelDownloads = 5`
 
- ```sh
- nano /etc/pacman.conf
- ```
+  ```sh
+  nano /etc/pacman.conf
+  ```
 
 - Uncomment this line `#ParallelDownloads = 5`
 - Press `CRTL + S` to save and `CRTL + X` to exit
@@ -330,9 +330,9 @@ Install some important packages with
 - Do <code>echo LANG=**LOCALE** > /etc/locale.conf</code>, **LOCALE** being your preferred locale from the ones you just generated.
 - Example
 
- ```gen
- echo LANG=en_US.UTF-8 > /etc/locale.conf
- ```
+  ```gen
+  echo LANG=en_US.UTF-8 > /etc/locale.conf
+  ```
 
 - Now you'll have to execute the following command:
 
@@ -356,15 +356,16 @@ Install some important packages with
 - You can [click here](https://regexr.com/4f7ah) and put the hostname you want your computer to have in the text field to see if you can actually use it.
 - Edit the file `/etc/hosts` to contain the following:
 
-<pre><code># Static table lookup for hostnames.
-# See hosts(5) for details.
+  <pre><code>
+  # Static table lookup for hostnames.
+  # See hosts(5) for details.
 
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   HOSTNAME
-</code></pre>
+  127.0.0.1   localhost
+  ::1         localhost
+  127.0.1.1   HOSTNAME
+  </code></pre>
 
-**HOSTNAME** being the hostname you chose in the previous command.
+  > Note: **HOSTNAME** being the hostname you chose in the previous command.
 
 ---
 
@@ -376,9 +377,9 @@ Install some important packages with
 
 - If you have an SSD, do
 
- ```sh
- systemctl enable fstrim.timer
- ```
+  ```sh
+  systemctl enable fstrim.timer
+  ```
 
 - Run below commad for the system to automatically update the pacman keyring.
 
@@ -389,14 +390,13 @@ Install some important packages with
 ### Initramfs
 
 - Edit the file `/etc/mkinitcpio.conf` and change `udev` to `systemd` in the `HOOKS` list.
+  https://wiki.archlinux.org/index.php/Installation_guide#Initramfs
 
-<https://wiki.archlinux.org/index.php/Installation_guide#Initramfs>
+- Creating a new initramfs is usually not required.
 
-Creating a new initramfs is usually not required, because mkinitcpio was run on installation of the kernel package with pacstrap.
-
-```sh
-mkinitcpio -P linux
-```
+  ```sh
+  mkinitcpio -P linux
+  ```
 
 ## How To Set the Root Password
 
@@ -430,9 +430,9 @@ Just installing these packages is not enough though. You'll have to make sure th
 - Time to install the microcode updater:
   - If you're using an Intel CPU, do
 
-   ```sh
-   pacman -S intel-ucode
-   ```
+    ```sh
+    pacman -S intel-ucode
+    ```
 
   - If you're using an AMD CPU, do
 
@@ -451,16 +451,16 @@ Just installing these packages is not enough though. You'll have to make sure th
   ```
 - If you're dual-booting with other operating systems, you'll have to enable os-prober before generating the configuration file. To do so, open the `/etc/default/grub` file in nano text editor. Locate the following line and uncomment it:
   
-   ```grub
-   # GRUB_DISABLE_OS_PROBER=false
-   ```
+  ```grub
+  # GRUB_DISABLE_OS_PROBER=false
+  ```
 
-   > This should be the last line in the aforementioned file so just scroll to the bottom and uncomment it.
+  > This should be the last line in the aforementioned file so just scroll to the bottom and uncomment it.
 
 - Then do 
-   ```sh
-   grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux`.
-   ```
+  ```sh
+  grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux`.
+  ```
 - Then do
 
   ```
@@ -482,9 +482,9 @@ Just installing these packages is not enough though. You'll have to make sure th
 
 - Start by logining in as **`root`**. Do `ln -svf /run/systemd/resolve/resolv.conf /etc/resolv.conf`.
 
-```sh
-sudo pacman -S zsh
-```
+  ```sh
+  sudo pacman -S zsh
+  ```
 
 - Change **`root`**'s shell by doing `chsh -s /bin/zsh`.
 - Do `timedatectl set-ntp true` and `timedatectl status` again to make sure the time is setup correctly. The RTC and Universal time should be in UTC and the Local time in your timezone.
@@ -509,9 +509,9 @@ sudo pacman -S zsh
 
 - Finally, you'll have to enable sudo privilege for this new user. To do so, open the `/etc/sudoers` file using nano. Once open, locate the following line and uncomment it:
 
-```txt
-# %wheel ALL=(ALL:ALL) ALL
-```
+  ```txt
+  # %wheel ALL=(ALL:ALL) ALL
+  ```
 
 - Add the line `Defaults pwfeedback`, preferably before `## Runas alias specification` in same file, if you want asterisks when inputting your password.
 
@@ -521,8 +521,10 @@ sudo pacman -S zsh
 
 - Do `nmtui` and setup your Internet connection.
 - Open the file `/etc/pacman.conf` and perform the following:
+
   - Uncomment the line `#ParallelDownloads = 5`.
   - Uncomment the line `#[multilib]` and the line below it.
+
 - Do `pacman -Syu` to update `pacman`'s configuration and to perform any updates available.
 - Reboot by doing `shutdown -r now`.
 
@@ -534,9 +536,9 @@ sudo pacman -S zsh
 
 - Login as the user you've created. In the ZSH configuration, continue to configure zsh or press *q* to quit if you already have a configuration in your dotfiles.
 
-```sh
-sudo pacman -S bat lm_sensors neofetch`.
-```
+  ```sh
+  sudo pacman -S bat lm_sensors neofetch`.
+  ```
 
 ---
 
@@ -562,9 +564,9 @@ Installing Paru in Arch Linux is easy!
 
 - Change into the paru directory:
 
-   ```bash
-   cd paru-bin
-   ```
+  ```bash
+  cd paru-bin
+  ```
 
 - Finally, build and install Paru AUR helper in Arch Linux using the following command:
 
@@ -594,7 +596,7 @@ Installing Paru in Arch Linux is easy!
 
 ### Set-up TTF Fonts
 
-Follow [this tutorial](https://gist.github.com/cryzed/e002e7057435f02cc7894b9e748c5671)
+  Follow [this tutorial](https://gist.github.com/cryzed/e002e7057435f02cc7894b9e748c5671)
 
 ### Bluetooth Headphone
 
@@ -742,7 +744,7 @@ If you want to use **openbox** with the setup I use =>  [EasyOpenboxWM](https://
   ```
 
 - If not working, restart your PC and run again.
-> If it shows a black screen then press `CTRL + AL + F1` and with your username.
+  > If it shows a black screen then press `CTRL + AL + F1` and with your username.
 
 
 ## Enabling Tap-to-click
