@@ -1,6 +1,6 @@
 # ArchLinux-Installation-Guide
 
-This is a guide for arch linux installation with  Openbox Window Managers
+This is a guide for arch linux installation with  Openbox Window Manager.
 
 ![Image](https://raw.githubusercontent.com/sumithemmadi/EasyOpenboxWM/main/images/openbox.png)
 
@@ -20,7 +20,7 @@ This is a guide for arch linux installation with  Openbox Window Managers
 First of all, you need the Arch Linux image, that can be downloaded from the [Official Website](https://www.archlinux.org/download/).
 After that, you should create the bootable flash drive with the Arch Linux image.
 
-- Write the [Arch Linux ISO](https://www.archlinux.org/download/) into a USB drive. There are several tools available for this, like [dd](https://man.archlinux.org/man/dd.1.en), [balenaEtcher](https://www.balena.io/etcher/), or my personal favorite, [Ventoy](https://www.ventoy.net/en/index.html).
+- Write the [Arch Linux ISO](https://www.archlinux.org/download/) into a USB drive. There are several tools available for this, like [dd](https://man.archlinux.org/man/dd.1.en), [balenaEtcher](https://www.balena.io/etcher/).
 
 If you're on a GNU/linux distribution, you can use the `dd` command for it. Like:
 
@@ -30,7 +30,8 @@ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync && syn
 
 > Note that you need to update the `of=/dev/sdx` with your USB device location (it can be discovered with the `lsblk` command).
 
-Otherwise, if you're on Windows, you can follow this [tutorial](https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_Windows)
+Otherwise, if you're on `Windows`, you can use [balenaEtcher](https://www.balena.io/etcher/) or [Rufus](https://rufus.ie/en/).
+You can follow this [tutorial](https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_Windows)
 
 ---
 
@@ -48,7 +49,7 @@ ls /sys/firmware/efi/efivars
 
 If the directory does not exists, the system may be booted in BIOS (not UEFI).
 
-## # (Dual Boot) Disable Fast Startup in Windows
+### (Dual Boot) Disable Fast Startup in Windows
 
 <https://help.uaudio.com/hc/en-us/articles/213195423-How-To-Disable-Fast-Startup-in-Windows-10>
 
