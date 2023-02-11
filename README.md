@@ -172,7 +172,7 @@ Once the partitions have been created, each (except swap) should be formatted wi
 
 ```sh
 mkfs.btrfs -L arch_root /dev/nvme0n1p6  #-- root partition
-mkfs.btrfs -L HOME /dev/nvme0n1p7              #-- home partition
+mkfs.btrfs -L HOME /dev/nvme0n1p7       #-- home partition
 
 ```
 
