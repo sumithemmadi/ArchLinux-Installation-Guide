@@ -776,10 +776,12 @@ Follow these steps carefully, they require root privileges! ⚠️
     Identifier "touchpad"
     Driver "libinput"
     MatchIsTouchpad "on"
-    Option "Tapping" "on"
-    Option "TappingButtonMap" "lmr"
-  EndSection
+    Option "tapping" "on"
+    Option "AccelProfile" "adaptive"
+    Option "TappingButtonMap" "lrm"
+EndSection
   ```
+
 
   Save the file (Ctrl + S)
   Quit the editor (Ctrl + X)
