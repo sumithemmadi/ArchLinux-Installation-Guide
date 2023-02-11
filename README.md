@@ -238,7 +238,10 @@ Open the file `/etc/pacman.conf` and uncomment the line `#ParallelDownloads = 5`
 pacstrap /mnt base{,-devel} btrfs-progs dkms linux{{,-lts}{,-headers},-firmware} nano
 ```
 
-- If the install failed because of signature issues, do pacman -Sy --needed archlinux-keyring to update the keyring and try again.
+- If the install failed because of signature issues, run below command to update the keyring and try again
+  ```sh
+  pacman -Sy --needed archlinux-keyring
+  ```
 
 ### Generate fstab
 
@@ -280,32 +283,32 @@ pacman-key --populate archlinux
 
 Install some important packages with
 
-```sh
-pacman -S dhclient git man-{db,pages} nano networkmanager openssh polkit vi vim
-```
+  ```sh
+  pacman -S dhclient git man-{db,pages} nano networkmanager openssh polkit vi vim
+  ```
 
 - Edit the file `/etc/NetworkManager/conf.d/dhcp.conf` to contain the following:
 
-```conf
-[main]
-dhcp=dhclient
-```
+  ```conf
+  [main]
+  dhcp=dhclient
+  ```
 
 - Edit the file `/etc/NetworkManager/conf.d/dns.conf` to contain the following:
 
-```conf
-[main]
-dns=systemd-resolved
-```
+  ```conf
+  [main]
+  dns=systemd-resolved
+  ```
 
 - If you want to enable [mDNS](https://en.wikipedia.org/wiki/Multicast_DNS) support, which is useful for adding network printers for example, do the following:
   - Edit the file `/etc/systemd/resolved.conf` and uncomment the line `#MulticastDNS=yes`
   - Edit the file `/etc/NetworkManager/conf.d/dns.conf` and add the following lines:
 
-```conf
-[connection]
-connection.mdns=2
-```
+    ```conf
+    [connection]
+    connection.mdns=2
+    ```
 
 ---
 
@@ -337,14 +340,13 @@ connection.mdns=2
   ```
   
 - Do <code>echo KEYMAP=**KEYMAP** > /etc/vconsole.conf</code>, **KEYMAP** being the name of the keymap you're using (set when you used the `loadkeys` command earlier).
-- Example
+- Example:
 
-```sh
-echo KEYMAP=mac-us > /etc/vconsole.conf
-```
+  ```sh
+  echo KEYMAP=mac-us > /etc/vconsole.conf
+  ```
 
 - Do `echo FONT=lat0-16 >> /etc/vconsole.conf`. You can find all fonts available in `/usr/share/kbd/consolefonts`.
--
 
 ---
 
@@ -379,9 +381,9 @@ echo KEYMAP=mac-us > /etc/vconsole.conf
 
 - Run below commad for the system to automatically update the pacman keyring.
 
-```sh
-systemctl enable archlinux-keyring-wkd-sync.timer
-```
+  ```sh
+  systemctl enable archlinux-keyring-wkd-sync.timer
+  ```
 
 ### Initramfs
 
@@ -433,25 +435,36 @@ Just installing these packages is not enough though. You'll have to make sure th
 
   - If you're using an AMD CPU, do
 
-  ```sh
-  pacman -S amd-ucode
-  ```
+    ```sh
+    pacman -S amd-ucode
+    ```
 
 ---
 
 ## How To Install and Configure a Boot Loader
 
-- Do `pacman -S grub efibootmgr os-prober`.
-- If you're installing alongside other operating systems, you'll have to enable os-prober before generating the configuration file. To do so, open the `/etc/default/grub` file in nano text editor. Locate the following line and uncomment it:
+- Run below command to install grub and efibootmgr.
+
+  ```sh
+  pacman -S grub efibootmgr os-prober
+  ```
+- If you're dual-booting with other operating systems, you'll have to enable os-prober before generating the configuration file. To do so, open the `/etc/default/grub` file in nano text editor. Locate the following line and uncomment it:
   
-```grub
-# GRUB_DISABLE_OS_PROBER=false
-```
+   ```grub
+   # GRUB_DISABLE_OS_PROBER=false
+   ```
 
-This should be the last line in the aforementioned file so just scroll to the bottom and uncomment it.
+   > This should be the last line in the aforementioned file so just scroll to the bottom and uncomment it.
 
-- Then do `grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch\ Linux`.
-- Do `grub-mkconfig -o /boot/grub/grub.cfg`.
+- Then do 
+   ```sh
+   grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux`.
+   ```
+- Then do
+
+  ```
+  grub-mkconfig -o /boot/grub/grub.cfg`.
+  ```
 
 - Do `exit` and then `umount -R /mnt`.
 - You can now do `shutdown now`.
@@ -478,12 +491,19 @@ sudo pacman -S zsh
 ---
 
 - Now add a user by doing <code> useradd -m -U -G wheel -s /bin/zsh -c "**REAL NAME**" **USERNAME**</code>, **REAL NAME** being the user's real name, and **USERNAME** a valid username.
-
+  Example:
+  ```sh
+  useradd -m -U -G wheel -s /bin/zsh -c "Sumith Emmadi" sumithemmadi
+  ```
 - Usernames in Unix-like OSs are valid if they're compatible with the regex expression `^[a-z_]([0-9a-z_-]{0,31}|[0-9a-z_-]{0,30}\$)$`.
 
 - You can check if a username is valid by clicking [here](https://regexr.com/4f7er).
 
 - Set the user's password with <code> passwd **USERNAME**</code>.
+  Example:
+  ```sh
+  passed sumithemmadi
+  ```
 
 - Finally, you'll have to enable sudo privilege for this new user. To do so, open the `/etc/sudoers` file using nano. Once open, locate the following line and uncomment it:
 
@@ -491,9 +511,9 @@ sudo pacman -S zsh
 # %wheel ALL=(ALL:ALL) ALL
 ```
 
-- Add the line `Defaults pwfeedback`, preferably before `## Runas alias specification`, if you want asterisks when inputting your password.
+- Add the line `Defaults pwfeedback`, preferably before `## Runas alias specification` in same file, if you want asterisks when inputting your password.
 
-- This file essentially means that all users in the wheel group can use sudo by providing their password. Save the file by hitting Ctrl + O and exit nano by hitting Ctrl + X. Now the new user will be able to use sudo when necessary.
+- This file essentially means that all users in the wheel group can use sudo by providing their password. Save the file by hitting Ctrl + S and exit nano by hitting Ctrl + X. Now the new user will be able to use sudo when necessary.
 
 ---
 
@@ -513,7 +533,7 @@ sudo pacman -S zsh
 - Login as the user you've created. In the ZSH configuration, continue to configure zsh or press *q* to quit if you already have a configuration in your dotfiles.
 
 ```sh
-sudo pacman -S bat lm_sensors neo{fetch,vim}`.
+sudo pacman -S bat lm_sensors neofetch`.
 ```
 
 ---
@@ -532,41 +552,41 @@ Installing Paru in Arch Linux is easy!
   
 - Git clone Paru repository using command:
 
-```bash
-git clone https://aur.archlinux.org/paru-bin.git
-```
+  ```bash
+  git clone https://aur.archlinux.org/paru-bin.git
+  ```
 
-This command will download the contents of the Paru GitHub repository in a local directory named paru.
+  > This command will download the contents of the Paru GitHub repository in a local directory named paru-bin.
 
 - Change into the paru directory:
 
-```bash
-cd paru-bin
-```
+   ```bash
+   cd paru-bin
+   ```
 
 - Finally, build and install Paru AUR helper in Arch Linux using the following command:
 
-```bash
-makepkg -si
-```
+  ```bash
+  makepkg -sri
+  ```
 
 - After the installation is done, do `cd ..`, and then `rm -rf paru-bin`.
-You can use `paru` for install packages from [AUR](https://aur.archlinux.org/paru.git)
+
+- Now you can use `paru` for install packages from [AUR](https://aur.archlinux.org/paru.git)
 
 - From now on we'll be using `paru` instead of `sudo pacman`.
--
 
-```sh
-paru -S xdg-user-dirs pacman-cleanup-hook
-```
+  ```sh
+  paru -S xdg-user-dirs pacman-cleanup-hook
+  ```
 
 #### oh-my-zsh
 
 1. Setup zsh with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework.
 
-```bash
-paru -S oh-my-zsh-git oh-my-zsh-plugin-syntax-highlighting oh-my-zsh-plugin-autosuggestions
-```
+   ```bash
+   paru -S oh-my-zsh-git oh-my-zsh-plugin-syntax-highlighting oh-my-zsh-plugin-autosuggestions
+   ```
 
 ## Extras
 
@@ -626,13 +646,16 @@ To auto switch to A2DP mode:
 
 ---
 
-### Congratulations! You finally have Arch Linux installed, and it's actually usable now
+### Congratulations! You finally have Arch Linux installed, and it's actually usable now.
+
+---
 
 ## How to install Openbox Window Manager
 
 Installing Openbox
 
 - To have audio, do `paru pipewire` and select the following packages:
+
   - `extra/pipewire`
   - `extra/pipewire-alsa`
   - `extra/pipewire-jack`
@@ -640,26 +663,35 @@ Installing Openbox
   - `extra/wireplumber`
   - `multilib/lib32-pipewire`
   - `multilib/lib32-pipewire-jack`
-- For fonts, do `paru -S noto-fonts{,-{cjk,emoji,extra}} ttf-fira-code`.
+
+- For fonts, run below command 
+
+  ```
+  paru -S noto-fonts{,-{cjk,emoji,extra}} ttf-fira-code
+  ```
+
 - To install Rust (which we'll need to compile packages from the AUR):
   - Do `paru -S rustup`.
   - Do `rustup default stable`.
+
 - I use a simple TUI greeter. To install it, do `paru -S greetd{,-tuigreet}`.
   - For the provider of `greetd`, simply select `greetd`.
+
 - Edit `/etc/greetd/config.toml`:
   - Change the `command` setting to `tuigreet -itrc 'systemd-cat -t xinit xinit -- :1'`.
+
 - Do `sudo systemctl enable greetd`.
+
 - For the base of the graphical environment, do `paru -S alacritty bspwm  xorg-{server,xinit}`.
   - Get the default configuration files by doing the following commands:
     - `cp /etc/X11/xinit/xinitrc ~/.xinitrc`.
     - `cp /etc/X11/xinit/xserverrc ~/.xserverrc`.
   - Edit `~/.xinitrc` and replace the last block of commands with `exec openbox-session`. Remove all last lines `twm &` to last line.
-  -
-  ![image](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/draw.png)
+    ![image](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/draw.png)
   
   - replace the last block of commands with `exec openbox-session`
 
-   ![image](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/draw.png)
+    ![image](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/draw.png)
 
   - Edit `~/.xserverrc` so that the contents of the file are the following:
 
@@ -672,42 +704,43 @@ If you want to use **openbox** with the setup I use =>  [EasyOpenboxWM](https://
 
 - Install required dependencies
 
-```bash
-pacman -S  xorg xorg-font-util xorg-xrdb xorg-xdm  xorg-server xorg-xinit sxhkd \
-xfce4-settings xfce4-terminal polybar ranger rofi startup-notification thunar   \
-openbox   obconf xarchiver dbus desktop-file-utils elinks gtk2 gtk3 man flameshot \
-zsh git  vim nano curl wget jq xarchiver firefox imagemagick geany alacritty gedit \
-bc bmon calc calcurse feh htop scrot mpc mpd mutt ncmpcpp neofetch  openssl leafpad \
-xmlstarlet xbitmaps ranger  xcompmgr nitrogen brightnessctl alsa-utils imv maim mpv 
-```
+  ```bash
+  pacman -S  xorg xorg-font-util xorg-xrdb xorg-xdm  xorg-server xorg-xinit sxhkd \
+  xfce4-settings xfce4-terminal polybar ranger rofi startup-notification thunar   \
+  openbox   obconf xarchiver dbus desktop-file-utils elinks gtk2 gtk3 man flameshot \
+  zsh git  vim nano curl wget jq xarchiver firefox imagemagick geany alacritty gedit \
+  bc bmon calc calcurse feh htop scrot mpc mpd mutt ncmpcpp neofetch  openssl leafpad \
+  xmlstarlet xbitmaps ranger  xcompmgr nitrogen brightnessctl alsa-utils imv maim mpv 
+  ```
 
 - Clone this repository
 
-```sh
-cd ~/
-git clone https://github.com/sumithemmadi/EasyOpenboxWM.git
-cd EasyOpenboxWM
-```
+  ```sh
+  cd ~/
+  git clone https://github.com/sumithemmadi/EasyOpenboxWM.git
+  cd EasyOpenboxWM
+  ```
 
 - Run below command to install open box config files.
 
-```bash
- configs=($(ls -A $(pwd)/files))
- for _config in "${configs[@]}"; do
-   cp -rf $(pwd)/files/$_config $HOME;
- done
-```
+  ```bash
+  configs=($(ls -A $(pwd)/files))
+  for _config in "${configs[@]}"; do
+     cp -rf $(pwd)/files/$_config $HOME;
+  done
+  ```
 
 - And wait for some time untill installation is done.
--
 
-Start Openbox Window Manager:
+  Start Openbox Window Manager:
 
-```bash
-startx
-```
+  ```bash
+  startx
+  ```
 
-- If not working restart you PC.
+- If not working, restart your PC and run again.
+> If it shows a black screen then press `CTRL + AL + F1` and with your username.
+
 
 ## Enabling Tap-to-click
 
@@ -738,8 +771,8 @@ Follow these steps carefully, they require root privileges! ⚠️
   EndSection
   ```
 
-  Save the file (Ctrl + s)
-  Quit the editor (Ctrl + q)
+  Save the file (Ctrl + S)
+  Quit the editor (Ctrl + X)
   
   Reboot
 
@@ -775,8 +808,6 @@ Here's some shortcut keys you want to use to speed up your work. For more, `Righ
 | `W-b` | Battery Menu |  | `W-n` | Network Menu |
 | `C-A-v` | Vim |  | `C-A-r` | Ranger |
 | `C-A-h` | Htop |  | `C-A-n` | Nano |
-
-- Reboot.
 
 ## References
 
