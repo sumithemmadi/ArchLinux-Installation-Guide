@@ -459,7 +459,7 @@ Just installing these packages is not enough though. You'll have to make sure th
 
 - Then do 
   ```sh
-  grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux`.
+  grub-install --target=x86_64-efi --efi-direct`ory=/boot --bootloader-id=Arch\ Linux
   ```
 - Then do
 
