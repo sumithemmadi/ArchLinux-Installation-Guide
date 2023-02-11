@@ -10,7 +10,10 @@ This is a guide for arch linux installation with  Openbox Window Manager.
 
 ### Small notes before we start
 
-- Arch Linux now comes with an installer, so if you just want a minimal system ready in a few minutes, you're better off just doing `archinstall`.
+- Arch Linux now comes with an installer, so if you just want a minimal system ready in a few minutes, you're better off just doing 
+  ```sh
+  archinstall
+  ```
 - The only officially supported architecture by Arch Linux is **x86_64**, so make sure your computer uses that architecture before attempting to install it.
 - This guide is for UEFI only, not BIOS.
 - so you should enable the UEFI mode and disable the secure boot option on your BIOS system. (Also remember to change the boot order to boot through your USB device).
