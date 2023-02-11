@@ -66,19 +66,17 @@ Time to connect to the Internet:
 - If scanning with `iwctl` isn't working (you get no networks found), simply do `systemctl restart iwd` and try again.
 - Do `ping -4c4 archlinux.org` to verify that everything is working properly.
 
+  ```sh
+  ping -4c4 archlinux.org
+  ```
+
 ### Update System Clock
 
 Ensures that the system clock is accurate.
 
-```sh
-timedatectl set-ntp true
-```
-
-First, test if you alredy have internet connection, so run:
-
-```sh
-# ping -c 2 google.com
-```
+  ```sh
+  timedatectl set-ntp true
+  ```
 
 ### Partitioning
 
