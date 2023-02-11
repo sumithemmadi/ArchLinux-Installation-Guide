@@ -62,6 +62,7 @@ Time to connect to the Internet:
 - If you're not going to use DHCP, [check the Arch Wiki on how to manually set a static IP](https://wiki.archlinux.org/title/Network_configuration#Static_IP_address).
 - If you're using a wired connection (recommended), it should already be working.
 - If you're using a wireless connection, the live system comes with `iwd` enabled, so you can use `iwctl`. `iwctl`'s man page (`man iwctl`) shows a simple example on how to connect to a network.
+  ![iwctl](https://raw.githubusercontent.com/sumithemmadi/ArchLinux-Installation-Guide/main/images/fileOHRD6BQC.jpg)
 - If scanning with `iwctl` isn't working (you get no networks found), simply do `systemctl restart iwd` and try again.
 - Do `ping -4c4 archlinux.org` to verify that everything is working properly.
 
@@ -70,10 +71,8 @@ Time to connect to the Internet:
 Ensures that the system clock is accurate.
 
 ```sh
-# timedatectl set-ntp true
+timedatectl set-ntp true
 ```
-
-### Internet Connection
 
 First, test if you alredy have internet connection, so run:
 
