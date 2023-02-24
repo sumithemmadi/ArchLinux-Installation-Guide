@@ -508,7 +508,7 @@ Just installing these packages is not enough though. You'll have to make sure th
   Example:
 
   ```sh
-  passed sumithemmadi
+  passwd sumithemmadi
   ```
 
 - Finally, you'll have to enable sudo privilege for this new user. To do so, open the `/etc/sudoers` file using nano. Once open, locate the following line and uncomment it:
