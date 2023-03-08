@@ -672,6 +672,18 @@ Installing Openbox
   - `multilib/lib32-pipewire`
   - `multilib/lib32-pipewire-jack`
 
+  or 
+  ```bash
+  paru -S \
+    extra/pipewire \
+    extra/pipewire-alsa \
+    extra/pipewire-jack \
+    extra/pipewire-pulse \
+    extra/wireplumber \
+    multilib/lib32-pipewire \
+    multilib/lib32-pipewire-jack
+  ```
+
 - For fonts, run below command 
 
   ```
@@ -690,7 +702,7 @@ Installing Openbox
 
 - Do `sudo systemctl enable greetd`.
 
-- For the base of the graphical environment, do `paru -S alacritty bspwm  xorg-{server,xinit}`.
+- For the base of the graphical environment, do `paru -S alacritty openbox  xorg-{server,xinit}`.
   - Get the default configuration files by doing the following commands:
     - `cp /etc/X11/xinit/xinitrc ~/.xinitrc`.
     - `cp /etc/X11/xinit/xserverrc ~/.xserverrc`.
